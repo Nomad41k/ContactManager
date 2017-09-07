@@ -1,15 +1,17 @@
 package com.Projekt;
 
 import java.io.*;
-import java.util.Scanner;
 import java.util.Vector;
+
+import static com.Projekt.MenuAction.*;
 
 class Menu {
 
     /**
      * Handles main menu operations
      */
-    void appRunner() {
+
+    static void appRunner() {
         Vector<Contact> contactList = new Vector<>();
 
         boolean runtime = true;
@@ -22,16 +24,17 @@ class Menu {
                     "0. Exit\n");
             System.out.print("== Action: ");
 
+            // Action is taken from the user and verified with regular expression
             switch (inputInt(input(), "[0-3]")) {
                 case 1:
                     if (contactList.size() > 0) {
                         displayContacts(contactList);
                     } else {
-                        System.out.println("No contacts.");
+                        System.out.println("No contacts. Add them first!");
                     }
                     break;
                 case 2:
-                    addNewContact(contactList);
+                    MenuAction.addNewContact(contactList);
                     break;
                 case 3:
                     settingsMenu(contactList);
@@ -52,124 +55,11 @@ class Menu {
     }
 
     /**
-     * Basic user input String validation
-     *
-     * @return retval
-     *         input
-     */
-    private String input() {
-        Scanner scanner = new Scanner(System.in);
-        String retval;
-        retval = scanner.nextLine();
-        while (retval.equals("")) {
-            System.out.println("Input cannot be empty!");
-            retval = scanner.nextLine();
-        }
-        return retval;
-    }
-
-    /**
-     * Parses user input into an Integer
-     *
-     * @param input - returned value from input()
-     * @param regEx - specified regular expression
-     * @return - parsed Integer
-     */
-    private int inputInt(String input, String regEx) {
-        while (!(input.matches(regEx))) {
-            System.out.println("Input is not valid!");
-            input = input();
-        }
-        return Integer.parseInt(input);
-    }
-
-    /**
-     * Prints the list of current held contact objects
-     *
-     * @param contactList - currently held contact objects vector
-     */
-    private void displayContacts(Vector<Contact> contactList) {
-        for (int index = 0; index < contactList.size(); ) {
-            System.out.println("" + contactList.get(index).toString() + "\n\n" +
-                    "[1] - previous contact\t[2] - remove contact\t[3] - next contact\n" +
-                    "\t\t\t\t[0] - back to main menu");
-
-            switch (inputInt(input(), "[0-3]")) {
-                case 1:
-                    if (index >= 1) {
-                        index--;
-                        break;
-                    } else {
-                        System.out.println("This is the first record.");
-                        index = contactList.size();
-                        break;
-                    }
-                case 2:
-                    removeContact(contactList, index);
-                case 3:
-                    if (index++ > contactList.size()) {
-                        System.out.println("No more records!");
-                        break;
-                    } else {
-                        index++;
-                        break;
-                    }
-                case 0:
-                    index = contactList.size();
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Adds new contact to a Contact Vector
-     *
-     * @param contactList - currently held contact objects vector
-     */
-    private void addNewContact(Vector<Contact> contactList) {
-        boolean runtime = true;
-        String [] placeHolder = new String[4];
-
-        while (runtime) {
-            System.out.println("First name:");
-            placeHolder[0] = input();
-            System.out.println("Last name:");
-            placeHolder[1] = input();
-            System.out.println("Address:");
-            placeHolder[2] = input();
-            System.out.println("Phone Number:");
-            placeHolder[3] = input();
-
-            Contact contact = new Contact(placeHolder[0],placeHolder[1],placeHolder[2], placeHolder[3]);
-            contactList.add(contact);
-
-            System.out.println("Add more? [y/n]");
-            if (input().toLowerCase().equals("n")) {
-            runtime = false;
-            }
-        }
-    }
-
-    /**
-     * Removes currently browsed contact object from contact vector
-     *
-     * @param contactList - currently held contact objects vector
-     * @param index - index of currently browsed contact
-     */
-    private void removeContact(Vector<Contact> contactList, int index) {
-        System.out.println("Are you sure you want to remove? [y/n]");
-        if (input().toLowerCase().equals("y")) {
-            contactList.remove(index);
-        }
-    }
-
-    /**
      * Displays settings menu
-     * @param contactList - currently held contact objects vector
+     * @param contactList - Vector class collection
      */
-    private void settingsMenu(Vector<Contact> contactList) {
+
+    private static void settingsMenu(Vector<Contact> contactList) {
         boolean runtime = true;
         while (runtime) {
             System.out.println("=== Settings ===\n" +
@@ -226,10 +116,11 @@ class Menu {
 
     /**
      * Displays sorting choice menu
-     * @param contactList - currently held contact objects vector
-     * @return
+     * @param contactList - Vector class collection
+     * @return - integer - depending on a vector size - sorting method
      */
-    private int sortMenu(Vector<Contact> contactList) {
+
+    private static int sortMenu(Vector<Contact> contactList) {
         boolean isContactListBig = false;
 
         System.out.println("=== Sort Menu ===\n" +
@@ -264,7 +155,6 @@ class Menu {
             }
         return 0;
     }
-
 
 //    private void quickSort(Vector<Contact> contactList, int method) {
 //    private static void quicksort(int tablica[], int x, int y) {
@@ -313,46 +203,6 @@ class Menu {
 //                break;
 //        }
 //    }
-
-    /**
-     * Opens file stream for import, parses each line for a new contact object and added to a vector
-     *
-     * @param contactList currently held contact objects vector
-     * @param fileName - user input for a file to import
-     * @throws IOException
-     * @throws StringIndexOutOfBoundsException
-     */
-    private void importFromFile(Vector<Contact> contactList, String fileName) throws IOException, StringIndexOutOfBoundsException {
-        FileInputStream fstream = new FileInputStream(fileName);
-        DataInputStream input = new DataInputStream(fstream);
-        BufferedReader bufferReader = new BufferedReader(new InputStreamReader(input));
-        try {
-            String strLine;
-            while ((strLine = bufferReader.readLine()) != null) {
-                String[] placeHolder = strLine.split(",");
-                Contact contact = new Contact(placeHolder[0],placeHolder[1],placeHolder[2], placeHolder[3]);
-                contactList.add(contact);
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("File import failed!\n" +
-                               "Error: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Wrong input!\n" +
-                               "\"Error: " + e.getMessage());
-        }
-        input.close();
-    }
-
-    private void exportToFile(Vector<Contact> contactList, String fileName) {
-        try(PrintWriter output = new PrintWriter(fileName)) {
-            for (Contact aContactList : contactList) {
-                output.print(aContactList.toString());
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File export failed!\n" +
-                               "Error: " + e.getMessage());
-        }
-    }
 
     private void searchContact(Vector<Contact> contactList, String criteria) {
         // TODO

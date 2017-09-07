@@ -1,4 +1,3 @@
 Jan,Kowalski,Katowice,666555444
 Janusz,Pawlacz-Nosacz,Chorzow,555444333
 Grzegorz,Nowak,Sosnowiec,999444333
-.
