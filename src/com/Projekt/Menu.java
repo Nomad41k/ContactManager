@@ -329,10 +329,10 @@ class Menu {
         Contact contact = new Contact();
 
         try {
-
         String textLine = bufferedReader.readLine();
         int breakIndex;
-            do {
+
+            while(textLine != null) {
                 breakIndex = textLine.indexOf(",");
                 contact.setFirstName(textLine.substring(0, breakIndex));
                 textLine = textLine.substring(breakIndex + 1);
@@ -351,7 +351,7 @@ class Menu {
                 contact.setPhoneNumber(textLine.substring(breakIndex + 1));
 
                 contactList.add(contact);
-            } while(textLine != null);
+            }
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("File import failed!");
         } catch (IOException e) {
