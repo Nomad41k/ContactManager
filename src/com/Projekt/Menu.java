@@ -1,8 +1,6 @@
 package com.Projekt;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -131,20 +129,20 @@ class Menu {
      * @param contactList - currently held contact objects vector
      */
     private void addNewContact(Vector<Contact> contactList) {
-        Contact contact = new Contact();
         boolean runtime = true;
+        String [] placeHolder = new String[4];
 
         while (runtime) {
-
             System.out.println("First name:");
-            contact.setFirstName(input());
+            placeHolder[0] = input();
             System.out.println("Last name:");
-            contact.setLastName(input());
+            placeHolder[1] = input();
             System.out.println("Address:");
-            contact.setAddress(input());
+            placeHolder[2] = input();
             System.out.println("Phone Number:");
-            contact.setPhoneNumber(input());
+            placeHolder[3] = input();
 
+            Contact contact = new Contact(placeHolder[0],placeHolder[1],placeHolder[2], placeHolder[3]);
             contactList.add(contact);
 
             System.out.println("Add more? [y/n]");
@@ -206,14 +204,15 @@ class Menu {
                     break;
                 case 2:
                     try {
-//                        System.out.println("Enter filename: ");
-                        importFromFile(contactList, "D:/file.txt");
+                        System.out.println("Enter filename: ");
+                        importFromFile(contactList, input());
                     } catch (IOException e) {
                         System.out.println("File not found!");
                     }
                     break;
                 case 3:
-                    // TODO
+                    System.out.println("Enter filename: ");
+                    exportToFile(contactList, input());
                     break;
                 case 0:
                     runtime = false;
@@ -324,45 +323,35 @@ class Menu {
      * @throws StringIndexOutOfBoundsException
      */
     private void importFromFile(Vector<Contact> contactList, String fileName) throws IOException, StringIndexOutOfBoundsException {
-        FileReader fileReader = new FileReader(fileName);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        Contact contact = new Contact();
-
+        FileInputStream fstream = new FileInputStream(fileName);
+        DataInputStream input = new DataInputStream(fstream);
+        BufferedReader bufferReader = new BufferedReader(new InputStreamReader(input));
         try {
-        String textLine = bufferedReader.readLine();
-        int breakIndex;
-
-            while(textLine != null) {
-                breakIndex = textLine.indexOf(",");
-                contact.setFirstName(textLine.substring(0, breakIndex));
-                textLine = textLine.substring(breakIndex + 1);
-
-                breakIndex = textLine.indexOf(",");
-                contact.setLastName(textLine.substring(0, breakIndex));
-                textLine = textLine.substring(breakIndex + 1);
-
-                breakIndex = textLine.indexOf(",");
-                contact.setAddress(textLine.substring(0, breakIndex));
-                textLine = textLine.substring(breakIndex + 1);
-
-                breakIndex = textLine.indexOf(",");
-                contact.setAddress(textLine.substring(0, breakIndex));
-
-                contact.setPhoneNumber(textLine.substring(breakIndex + 1));
-
+            String strLine;
+            while ((strLine = bufferReader.readLine()) != null) {
+                String[] placeHolder = strLine.split(",");
+                Contact contact = new Contact(placeHolder[0],placeHolder[1],placeHolder[2], placeHolder[3]);
                 contactList.add(contact);
             }
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("File import failed!");
+            System.out.println("File import failed!\n" +
+                               "Error: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("Wrong input!");
+            System.out.println("Wrong input!\n" +
+                               "\"Error: " + e.getMessage());
         }
-
-        bufferedReader.close();
+        input.close();
     }
 
     private void exportToFile(Vector<Contact> contactList, String fileName) {
-        // TODO
+        try(PrintWriter output = new PrintWriter(fileName)) {
+            for (Contact aContactList : contactList) {
+                output.print(aContactList.toString());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File export failed!\n" +
+                               "Error: " + e.getMessage());
+        }
     }
 
     private void searchContact(Vector<Contact> contactList, String criteria) {

@@ -15,7 +15,7 @@ public class Contact {
      * @param address
      * @param phoneNumber
      */
-    void setContact(String firstName, String lastName, String address, String phoneNumber) {
+    Contact(String firstName, String lastName, String address, String phoneNumber) {
         setFirstName(firstName);
         setLastName(lastName);
         setAddress(address);
@@ -24,7 +24,7 @@ public class Contact {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + " " + address + " " + phoneNumber + '\n';
+        return firstName + "," + lastName + "," + address + "," + phoneNumber + '\n';
     }
 
     void setFirstName(String firstName) {
