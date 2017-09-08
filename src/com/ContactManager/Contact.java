@@ -22,4 +22,18 @@ public class Contact {
         return firstName + " " + lastName + "\nAddress: " + address +
                 "\nPhone number: " + String.valueOf(phoneNumber).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3") + "\n";
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

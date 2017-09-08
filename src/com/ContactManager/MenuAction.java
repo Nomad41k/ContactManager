@@ -1,7 +1,6 @@
 package com.ContactManager;
 
 import java.io.*;
-import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -106,8 +105,12 @@ class MenuAction {
             param[3] = input().replaceAll("[- ()]", "");
 
             Contact contact = new Contact(param[0], param[1], param[2], param[3]);
-            contactList.add(contact);
 
+            if (isObjectAlreadyInArray(contactList, contact.toString())) {
+                System.out.println("Contact already exists!");
+            } else {
+                contactList.add(contact);
+            }
             while (runtimeMore) {
                 System.out.println("Add more? [y/n]");
                 switch (input().toLowerCase()) {
@@ -154,13 +157,19 @@ class MenuAction {
         DataInputStream input = new DataInputStream(fstream);
         BufferedReader bufferReader = new BufferedReader(new InputStreamReader(input));
         String stringLine;
+        int existingContactsNumber = 0;
 
         try {
             while ((stringLine = bufferReader.readLine()) != null) {
                 String[] param = stringLine.split(",", 4);
                 Contact contact = new Contact(param[0], param[1], param[2], param[3]);
-                contactList.add(contact);
+                if (isObjectAlreadyInArray(contactList, contact.toString())) {
+                    existingContactsNumber++;
+                } else {
+                    contactList.add(contact);
+                }
             }
+            System.out.println("File import complete!\nContacts already existing in array: " + existingContactsNumber);
         } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | IOException e) {
             System.out.println("File import failed!\n" +
                     "Error: " + e.getMessage());
@@ -186,6 +195,12 @@ class MenuAction {
         }
     }
 
+    /**
+     * Searches for the inputed phrase in each objects field
+     * @param contactList - ArrayList class collection
+     * @param input - user input of searched phrase
+     */
+
     static void search(ArrayList<Contact> contactList, String input) {
         for (Contact aContactList : contactList) {
             if (aContactList.printOut().toLowerCase().contains(input.toLowerCase())) {
@@ -194,9 +209,52 @@ class MenuAction {
         }
     }
 
-//    static void sort(ArrayList<Contact> contactList, int type) {
-//        if (type == 1) {
-//            contactList.sort();
-//        }
-//    }
+    /**
+     * Sorts the contacts array according to user input - either alphabetically by first or last name. Uses bubble sort.
+     * @param contactList - ArrayList class collection
+     * @param type - user input for a type of sorting
+     */
+
+    static void sort(ArrayList<Contact> contactList, int type) {
+        if (type == 1) {
+            for (int i = 0; i < contactList.size(); i++) {
+                for (int j = 0; j < contactList.size() - 1; j++) {
+                    if (contactList.get(j).getFirstName().compareTo(contactList.get(j + 1).getFirstName()) > 0) swap(contactList, j);
+                }
+            }
+        } else {
+            for (int i = 0; i < contactList.size(); i++) {
+                for (int j = 0; j < contactList.size() - 1; j++) {
+                    if (contactList.get(j).getLastName().compareTo(contactList.get(j + 1).getLastName()) > 0) swap(contactList, j);
+                }
+            }
+        }
+    }
+
+    /**
+     * Swaps ArrayList object with a following one
+     * @param contactList - ArrayList class collection
+     * @param index - object index to swap
+     */
+
+    private static void swap(ArrayList<Contact> contactList, int index) {
+        // Swaps places of objects
+        // Copy object at index j to the end of an ArrayList
+        contactList.add(contactList.get(index));
+        // Move object at index j + 1 into index 1
+        contactList.set(index, contactList.get(index + 1));
+        // Move object at index j int j + 1
+        contactList.set(index + 1, contactList.get((contactList.size() - 1)));
+
+        // Remove spare swapped object
+        contactList.remove(contactList.size() - 1);
+    }
+
+    private static boolean isObjectAlreadyInArray (ArrayList<Contact> contactList, String comparedObject) {
+        for (Contact aContactList : contactList) {
+            if (aContactList.toString().equals(comparedObject))
+                return true;
+        }
+        return false;
+    }
 }

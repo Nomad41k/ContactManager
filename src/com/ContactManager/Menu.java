@@ -79,10 +79,10 @@ class Menu {
                 case 1:
                     switch (sortMenu()) {
                         case 1:
-//                            sort(contactList, 1);
+                            sort(contactList, 1);
                             break;
                         case 2:
-//                            sort(contactList, 2);
+                            sort(contactList, 2);
                             break;
                         case 0:
                             break;
