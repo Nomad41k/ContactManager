@@ -22,7 +22,7 @@ class MenuAction {
             System.out.println("Input cannot be empty!");
             retval = scanner.nextLine();
         }
-        return retval;
+        return retval.trim();
     }
 
     /**
@@ -48,34 +48,39 @@ class MenuAction {
      */
 
     static void displayContacts(ArrayList<Contact> contactList) {
-        ListIterator<Contact> listIterator = contactList.listIterator();
-
         boolean runtime = true;
-        int index = 0;
-        while (runtime) {
-            System.out.println(contactList.get(index).printOut() + "\n\n" +
-                    "[1] - previous contact\t[2] - remove contact\t[3] - next contact\n" +
-                    "\t\t\t\t[0] - back to main menu");
 
-            switch (inputInt(input(), "[0-3]")) {
-                case 1:
-                    listIterator.previous();
-                    break;
-                case 2:
-                    removeContact(contactList, index);
-                    if (contactList.size() == 0) {
-                        System.out.println("You've emptied the cache!");
+        while (runtime) {
+            for (int index = 0; index < contactList.size();) {
+                System.out.println(contactList.get(index).printOut() + "\n\n" +
+                        "[1] - previous contact\t[2] - remove contact\t[3] - next contact\n" +
+                        "\t\t\t\t[0] - back to main menu");
+
+                switch (inputInt(input(), "[0-3]")) {
+                    case 1:
+                        if (index == 0) {
+                            index = contactList.size() - 1;
+                        } else {
+                            index--;
+                        }
+                        break;
+                    case 2:
+                        removeContact(contactList, index);
+                        if (contactList.size() == 0) {
+                            System.out.println("You've emptied the cache!");
+                            runtime = false;
+                        }
+                        break;
+                    case 3:
+                        index++;
+                        break;
+                    case 0:
                         runtime = false;
-                    }
-                    break;
-                case 3:
-                    listIterator.next();
-                    break;
-                case 0:
-                    runtime = false;
-                    break;
-                default:
-                    break;
+                        index = contactList.size();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -88,19 +93,19 @@ class MenuAction {
 
     static void addNewContact(ArrayList<Contact> contactList) {
         boolean runtime = true, runtimeMore = true;
-        String [] placeHolder = new String[4];
+        String [] param = new String[4];
 
         while (runtime) {
             System.out.println("First name:");
-            placeHolder[0] = input();
+            param[0] = input();
             System.out.println("Last name:");
-            placeHolder[1] = input();
+            param[1] = input();
             System.out.println("Address:");
-            placeHolder[2] = input();
+            param[2] = input();
             System.out.println("Phone Number:");
-            placeHolder[3] = input();
+            param[3] = input().replaceAll("[- ()]", "");
 
-            Contact contact = new Contact(placeHolder[0], placeHolder[1], placeHolder[2], placeHolder[3]);
+            Contact contact = new Contact(param[0], param[1], param[2], param[3]);
             contactList.add(contact);
 
             while (runtimeMore) {
@@ -181,8 +186,12 @@ class MenuAction {
         }
     }
 
-    private void searchContact(ArrayList<Contact> contactList, String criteria) {
-        // TODO
+    static void search(ArrayList<Contact> contactList, String input) {
+        for (Contact aContactList : contactList) {
+            if (aContactList.printOut().toLowerCase().contains(input.toLowerCase())) {
+                System.out.println("\n" + aContactList.printOut() + "\n");
+            }
+        }
     }
 
 //    static void sort(ArrayList<Contact> contactList, int type) {

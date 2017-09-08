@@ -19,6 +19,7 @@ public class Contact {
     }
 
     String printOut() {
-        return firstName + " " + lastName + "\nAddress: " + address + "\nPhone number: " + phoneNumber + "\n";
+        return firstName + " " + lastName + "\nAddress: " + address +
+                "\nPhone number: " + String.valueOf(phoneNumber).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3") + "\n";
     }
 }

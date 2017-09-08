@@ -20,13 +20,13 @@ class Menu {
                     "== Main Menu ==\n" +
                     "1. Show contact list\n" +
                     "2. Add new contact\n" +
-                    "3. Search contact" +
+                    "3. Search contact\n" +
                     "4. Settings\n" +
                     "0. Exit\n");
             System.out.print("== Action: ");
 
             // Action is taken from the user and verified with regular expression
-            switch (inputInt(input(), "[0-3]")) {
+            switch (inputInt(input(), "[0-4]")) {
                 case 1:
                     if (contactList.size() > 0) {
                         displayContacts(contactList);
@@ -38,15 +38,8 @@ class Menu {
                     MenuAction.addNewContact(contactList);
                     break;
                 case 3:
-                    switch (searchMenu()) {
-                        case 1:
-                        case 2:
-                        case 3:
-                        case 4:
-                        default:
-
-                    }
-
+                    System.out.println("Enter the phrase you're searching for: ");
+                    MenuAction.search(contactList, input());
                     break;
                 case 4:
                     settingsMenu(contactList);
@@ -146,9 +139,5 @@ class Menu {
                     break;
             }
         return 0;
-    }
-
-    private static void searchMenu() {
-
     }
 }

@@ -3,10 +3,10 @@ Janusz,Pawlacz-Nosacz,Chorzow,555444333
 Grzegorz,Nowak,Sosnowiec,999444333
 Jozef,Mlot,Krakow,213897123
 Janina,Maslo,Warszawa,789345123
-Krzystof,Kleszcz,DabrowaGornicza,893746534
+Krzystof,Kleszcz,Dabrowa Gornicza,893746534
 Antoni,Krowa,Wroclaw,897675321
 Maria,Szyba,Gdansk,859485632
-Robert,Szynka,DabrowaGornicza,924851328
+Robert,Szynka,Dabrowa Gornicza,924851328
 Lucjan,Kartka,Katowice,183489743
 Zbigniew,Kalendarz,Poznan,284980204
 Ignacy,Paderewski,Poznan,768545062
