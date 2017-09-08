@@ -1,4 +1,4 @@
-package com.Projekt;
+package com.ContactManager;
 
 public class Contact {
     private String firstName;
@@ -15,6 +15,10 @@ public class Contact {
 
     @Override
     public String toString() {
-        return firstName + "," + lastName + "," + address + "," + phoneNumber + '\n';
+        return firstName + "," + lastName + "," + address + "," + phoneNumber + "\n";
+    }
+
+    String printOut() {
+        return firstName + " " + lastName + "\nAddress: " + address + "\nPhone number: " + phoneNumber + "\n";
     }
 }

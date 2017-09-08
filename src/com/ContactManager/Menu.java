@@ -1,9 +1,9 @@
-package com.Projekt;
+package com.ContactManager;
 
 import java.io.*;
-import java.util.Vector;
+import java.util.ArrayList;
 
-import static com.Projekt.MenuAction.*;
+import static com.ContactManager.MenuAction.*;
 
 class Menu {
 
@@ -12,7 +12,7 @@ class Menu {
      */
 
     static void appRunner() {
-        Vector<Contact> contactList = new Vector<>();
+        ArrayList<Contact> contactList = new ArrayList<>();
 
         boolean runtime = true;
         while (runtime) {
@@ -20,7 +20,8 @@ class Menu {
                     "== Main Menu ==\n" +
                     "1. Show contact list\n" +
                     "2. Add new contact\n" +
-                    "3. Settings\n" +
+                    "3. Search contact" +
+                    "4. Settings\n" +
                     "0. Exit\n");
             System.out.print("== Action: ");
 
@@ -37,6 +38,17 @@ class Menu {
                     MenuAction.addNewContact(contactList);
                     break;
                 case 3:
+                    switch (searchMenu()) {
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        default:
+
+                    }
+
+                    break;
+                case 4:
                     settingsMenu(contactList);
                     break;
                 case 0:
@@ -59,7 +71,7 @@ class Menu {
      * @param contactList - Vector class collection
      */
 
-    private static void settingsMenu(Vector<Contact> contactList) {
+    private static void settingsMenu(ArrayList<Contact> contactList) {
         boolean runtime = true;
         while (runtime) {
             System.out.println("=== Settings ===\n" +
@@ -72,18 +84,12 @@ class Menu {
 
             switch (inputInt(input(), "[0-3]")) {
                 case 1:
-                    switch (sortMenu(contactList)) {
+                    switch (sortMenu()) {
                         case 1:
-//                            quickSort(contactList, 1);
+//                            sort(contactList, 1);
                             break;
                         case 2:
-//                            sortBubble(contactList, 1);
-                            break;
-                        case 3:
-//                            quickSort(contactList, 2);
-                            break;
-                        case 4:
-//                            sortBubble(contactList, 2);
+//                            sort(contactList, 2);
                             break;
                         case 0:
                             break;
@@ -116,12 +122,10 @@ class Menu {
 
     /**
      * Displays sorting choice menu
-     * @param contactList - Vector class collection
      * @return - integer - depending on a vector size - sorting method
      */
 
-    private static int sortMenu(Vector<Contact> contactList) {
-        boolean isContactListBig = false;
+    private static int sortMenu() {
 
         System.out.println("=== Sort Menu ===\n" +
                 "Choose sorting method?\n" +
@@ -130,23 +134,11 @@ class Menu {
                 "0. Back to menu\n" +
                 "== Action: ");
 
-        if (contactList.size() > 20) {
-            isContactListBig = true;
-        }
-
         switch (inputInt(input(), "[0-2]")) {
                 case 1:
-                    if (isContactListBig) {
-                        return 1;
-                    } else {
-                        return 2;
-                    }
+                    return 1;
                 case 2:
-                    if (isContactListBig) {
-                        return 3;
-                    } else {
-                        return 4;
-                    }
+                    return 2;
                 case 0:
                     return 0;
                 default:
@@ -156,55 +148,7 @@ class Menu {
         return 0;
     }
 
-//    private void quickSort(Vector<Contact> contactList, int method) {
-//    private static void quicksort(int tablica[], int x, int y) {
-//        int pivot = contactList.size();
-//
-//            switch (method) {
-//            case 1:
-//                do {
-//
-//                } while
-//            case 2:
-//
-//        }
-//        int i,j,v,temp;
-//
-//        i=x;
-//        j=y;
-//        v=tablica[(x+y) / 2];
-//        do {
-//            while (tablica[i]<v)
-//                i++;
-//            while (v<tablica[j])
-//                j--;
-//            if (i<=j) {
-//                temp=tablica[i];
-//                tablica[i]=tablica[j];
-//                tablica[j]=temp;
-//                i++;
-//                j--;
-//            }
-//        }
-//        while (i<=j);
-//        if (x<j)
-//            quicksort(tablica,x,j);
-//        if (i<y)
-//            quicksort(tablica,i,y);
-//    }
-//}
-//
-//    private void sortBubble(Vector<Contact> contactList, int method) {
-//        switch (method) {
-//            case 1:
-//                int size = contactList.size();
-//                break;
-//            case 2:
-//                break;
-//        }
-//    }
+    private static void searchMenu() {
 
-    private void searchContact(Vector<Contact> contactList, String criteria) {
-        // TODO
     }
 }
