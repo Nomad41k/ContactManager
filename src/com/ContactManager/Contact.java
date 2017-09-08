@@ -35,28 +35,23 @@ public class Contact {
     String getLastName() {
         return lastName;
     }
-
-    public static void setContactList(ArrayList<Contact> contactList) {
-        Contact.contactList = contactList;
+    int getAge() {
+        return age;
     }
 
-    public void setFirstName(String firstName) {
+    void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
-    public void setLastName(String lastName) {
+    void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public void setAddress(String address) {
+    void setAddress(String address) {
         this.address = address;
     }
-
-    public void setPhoneNumber(String phoneNumber) {
+    void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public void setAge(int age) {
+    void setAge(int age) {
         this.age = age;
     }
 }

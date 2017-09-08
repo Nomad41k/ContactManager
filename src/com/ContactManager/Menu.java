@@ -81,6 +81,8 @@ class Menu {
                         case 2:
                             sort(2);
                             break;
+                        case 3:
+                            sort(3);
                         case 0:
                             break;
                         default:
@@ -121,15 +123,17 @@ class Menu {
                 "Choose sorting method?\n" +
                 "1. Sort by first name\n" +
                 "2. Sort by last name\n" +
+                "3. Sort by age\n" +
                 "0. Back to menu\n");
         System.out.print("== Action: ");
 
-
-        switch (inputInt(input(), "[0-2]")) {
+        switch (inputInt(input(), "[0-3]")) {
                 case 1:
                     return 1;
                 case 2:
                     return 2;
+                case 3:
+                    return 3;
                 case 0:
                     return 0;
                 default:

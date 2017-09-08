@@ -258,16 +258,25 @@ class MenuAction {
      */
 
     static void sort(int type) {
+
         if (type == 1) {
             for (int i = 0; i < contactList.size(); i++) {
                 for (int j = 0; j < contactList.size() - 1; j++) {
-                    if (contactList.get(j).getFirstName().compareTo(contactList.get(j + 1).getFirstName()) > 0) swap(j);
+                    if (contactList.get(j).getFirstName().compareTo(contactList.get(j + 1).getFirstName()) > 0) swapObject(j);
                 }
             }
-        } else {
+        }
+        if (type == 2) {
             for (int i = 0; i < contactList.size(); i++) {
                 for (int j = 0; j < contactList.size() - 1; j++) {
-                    if (contactList.get(j).getLastName().compareTo(contactList.get(j + 1).getLastName()) > 0) swap(j);
+                    if (contactList.get(j).getLastName().compareTo(contactList.get(j + 1).getLastName()) > 0) swapObject(j);
+                }
+            }
+        }
+        if (type == 3) {
+            for (int i = 0; i < contactList.size(); i++) {
+                for (int j = 0; j < contactList.size() - 1; j++) {
+                    if (contactList.get(j).getAge() > contactList.get(j + 1).getAge()) swapObject(j);
                 }
             }
         }
@@ -275,10 +284,10 @@ class MenuAction {
 
     /**
      * Swaps ArrayList object with a following one
-     * @param index - object index to swap
+     * @param index - object index to swapObject
      */
 
-    private static void swap(int index) {
+    private static void swapObject(int index) {
         // Swaps places of objects
         // Copy object at index j to the end of an ArrayList
         contactList.add(contactList.get(index));
