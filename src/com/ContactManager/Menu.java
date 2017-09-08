@@ -1,18 +1,16 @@
 package com.ContactManager;
 
 import java.io.*;
-import java.util.ArrayList;
 
+import static com.ContactManager.Contact.contactList;
 import static com.ContactManager.MenuAction.*;
 
 class Menu {
-
     /**
      * Handles main menu operations
      */
 
     static void appRunner() {
-        ArrayList<Contact> contactList = new ArrayList<>();
 
         boolean runtime = true;
         while (runtime) {
@@ -29,20 +27,20 @@ class Menu {
             switch (inputInt(input(), "[0-4]")) {
                 case 1:
                     if (contactList.size() > 0) {
-                        displayContacts(contactList);
+                        displayContacts();
                     } else {
                         System.out.println("No contacts. Add them first!");
                     }
                     break;
                 case 2:
-                    MenuAction.addNewContact(contactList);
+                    MenuAction.addNewContact();
                     break;
                 case 3:
                     System.out.println("Enter the phrase you're searching for: ");
-                    MenuAction.search(contactList, input());
+                    MenuAction.search(input());
                     break;
                 case 4:
-                    settingsMenu(contactList);
+                    settingsMenu();
                     break;
                 case 0:
                     System.out.println("Are you sure you want to exit? [y/n]");
@@ -61,10 +59,9 @@ class Menu {
 
     /**
      * Displays settings menu
-     * @param contactList - Vector class collection
      */
 
-    private static void settingsMenu(ArrayList<Contact> contactList) {
+    private static void settingsMenu() {
         boolean runtime = true;
         while (runtime) {
             System.out.println("=== Settings ===\n" +
@@ -72,17 +69,17 @@ class Menu {
                     "1. Edit sorting\n" +
                     "2. Import from file\n" +
                     "3. Export to file\n" +
-                    "0. Back to menu\n" +
-                    "== Action: ");
+                    "0. Back to menu\n");
+            System.out.print("== Action: ");
 
-            switch (inputInt(input(), "[0-3]")) {
+            switch (inputInt(input(), "[0-4]")) {
                 case 1:
                     switch (sortMenu()) {
                         case 1:
-                            sort(contactList, 1);
+                            sort(1);
                             break;
                         case 2:
-                            sort(contactList, 2);
+                            sort(2);
                             break;
                         case 0:
                             break;
@@ -94,14 +91,14 @@ class Menu {
                 case 2:
                     try {
                         System.out.println("Enter filename: ");
-                        importFromFile(contactList, input());
+                        importFromFile(input());
                     } catch (IOException e) {
                         System.out.println("File not found!");
                     }
                     break;
                 case 3:
                     System.out.println("Enter filename: ");
-                    exportToFile(contactList, input());
+                    exportToFile(input());
                     break;
                 case 0:
                     runtime = false;
@@ -124,8 +121,9 @@ class Menu {
                 "Choose sorting method?\n" +
                 "1. Sort by first name\n" +
                 "2. Sort by last name\n" +
-                "0. Back to menu\n" +
-                "== Action: ");
+                "0. Back to menu\n");
+        System.out.print("== Action: ");
+
 
         switch (inputInt(input(), "[0-2]")) {
                 case 1:

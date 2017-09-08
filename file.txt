@@ -1,18 +1,20 @@
-Jan,Kowalski,Katowice,666555444
-Janusz,Pawlacz-Nosacz,Chorzow,555444333
-Grzegorz,Nowak,Sosnowiec,999444333
-Jozef,Mlot,Krakow,213897123
-Janina,Maslo,Warszawa,789345123
-Krzystof,Kleszcz,Dabrowa Gornicza,893746534
-Antoni,Krowa,Wroclaw,897675321
-Maria,Szyba,Gdansk,859485632
-Robert,Szynka,Dabrowa Gornicza,924851328
-Lucjan,Kartka,Katowice,183489743
-Zbigniew,Kalendarz,Poznan,284980204
-Ignacy,Paderewski,Poznan,768545062
-Zbigniew,Glosnik,Rzeszow,933131747
-Weronika,Piwnica,Kluczbork,665187608
-Izydor,Olej,Sosnowiec,045384100
-Jadwiga,Butelka,Bydgoszcz,868002229
-Kamil,Piec,Wojkowice,490761935
-Jozef,Kierownica,Opole,712127475
+Jan,Kowalski,Katowice,666555444,32
+Janusz,Pawlacz-Nosacz,Chorzow,555444333,53
+Grzegorz,Nowak,Sosnowiec,999444333,55
+Jozef,Mlot,Krakow,213897123,12
+Janina,Maslo,Warszawa,789345123,54
+Krzystof,Zarowka,Dabrowa Gornicza,893746534,23
+Antoni,Krowa,Wroclaw,897675321,42
+Maria,Szyba,Gdansk,859485632,13
+Robert,Szynka,Dabrowa Gornicza,924851328,15
+Lucjan,Kartka,Katowice,183489743,34
+Zbigniew,Kalendarz,Poznan,284980204,23
+Ignacy,Zarowka,Poznan,768545062,42
+Zbigniew,Glosnik,Rzeszow,933131747,53
+Weronika,Piwnica,Kluczbork,665187608,13
+Izydor,Olej,Sosnowiec,045384100,53
+Jadwiga,Butelka,Bydgoszcz,868002229,64
+Kamil,Piec,Wojkowice,490761935,12
+Jozef,Kierownica,Opole,712127475,21
+Antoni,Warga,Chrzanow,95493423,65
+Dionizy,Arbuz,Legnica,984048203,22
